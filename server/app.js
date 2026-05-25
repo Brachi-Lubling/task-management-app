@@ -1,24 +1,27 @@
 import express from 'express'
+import { logger } from './middlewares/logger.middleware.js'
 import cors from 'cors'
+import userRouter from './routes/user.rout.js'
+import projectRouter from './routes/projects.route.js'
+import taskRouter from './routes/tasks.route.js'
 
-const app = express()
 
-// Disable caching / ETags
-app.set('etag', false)
+const server=express()
 
-app.use((req, res, next) => {
-  res.set('Cache-Control', 'no-cache, no-store, must-revalidate')
-  res.set('Pragma', 'no-cache')
-  res.set('Expires', '0')
-  res.removeHeader('etag')
-  next()
-})
+server.set('etag', false);
 
-app.use(cors())
-app.use(express.json())
+server.use((req, res, next) => {
+  res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.set('Pragma', 'no-cache');
+  res.set('Expires', '0');
+  res.removeHeader('etag');
+  next();
+});
 
-app.get('/', (req, res) => {
-  res.send('API is running')
-})
-
-export default app
+server.use(cors())
+server.use(express.json())
+server.use(logger)
+server.use('/users', userRouter)
+server.use('/projects', projectRouter)
+server.use('/tasks', taskRouter)
+export default server
