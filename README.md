@@ -37,7 +37,7 @@ project-root/
 ## Getting Started
 
 ### 1. Clone the repository
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+git clone https://github.com/Brachi-Lubling/task-management-app.git
 cd YOUR_REPO
 
 ---
